@@ -2,7 +2,7 @@
   "name": "keepkey-affliate",
   "version": "0.1.0",
   "private": true,
-  "author": "sozonome",
+  "author": "highlander",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
