@@ -42,7 +42,7 @@ const Login = () => {
   const [leaderAddress, setLeaderAddress] = React.useState("");
   const handleInputChangeEmail = (e: any) => setLeaderAddress(e.target.value);
 
-  // onSignUp
+  // onSignUp function
   const onSignUp = async function () {
     const leader = leaderAddress;
 
