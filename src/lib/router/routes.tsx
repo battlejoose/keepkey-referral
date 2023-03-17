@@ -5,11 +5,11 @@ import Login from "lib/pages/login";
 
 export const routes: Array<PathRouteProps> = [
   {
-    path: "/",
+    path: "/login/:reffural",
     element: <Login />,
   },
   {
-    path: "/home",
+    path: "/",
     element: <Home />,
   },
 ];

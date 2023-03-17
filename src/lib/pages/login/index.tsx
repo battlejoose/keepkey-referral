@@ -12,13 +12,14 @@ import { useConnectWallet } from "@web3-onboard/react";
 import axios from "axios";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import uuid from "short-uuid";
 import { isError } from "util";
 
 interface Props {}
 
 const URL = "https://ccbot.pro";
-//const URL = "http://localhost:4000";
+// const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
@@ -28,8 +29,8 @@ interface BodyRegister {
   leader: string;
 }
 
-
 const Login = () => {
+  const { reffural } = useParams();
   const [{ wallet }, connect] = useConnectWallet();
   const [address, setAddress] = React.useState("");
   const [affliateId, setAffliateId] = React.useState("");
@@ -66,8 +67,8 @@ const Login = () => {
       if (!address) throw Error("Onbord not setup! no address ");
       if (!wallet || !wallet.provider) throw Error("Onbord not setup!");
       const ethersProvider = new ethers.providers.Web3Provider(
-          wallet.provider,
-          "any"
+        wallet.provider,
+        "any"
       );
       const signer = ethersProvider.getSigner();
       const signature = await signer.signMessage(payload);
@@ -100,7 +101,7 @@ const Login = () => {
       if (wallet?.accounts[0].address) {
         setAddress(wallet.accounts[0].address);
         const user = await axios.get(
-            `${URL}/api/v1/user/${wallet.accounts[0].address}`
+          `${URL}/api/v1/user/${wallet.accounts[0].address}`
         );
         if (user.data) {
           // eslint-disable-next-line no-console
@@ -129,43 +130,45 @@ const Login = () => {
     if (!wallet) connect();
   }, [connect, wallet]); // once on startup
 
-  let isError = false;
+  const isError = false;
+
   return (
-      <div>
-        {isSignedUp ? (
-            <div>
-              <Grid gap={4}>
-                <div>Address: {address}</div>
-                <div>CODE: {affliateId}</div>
-                <div>LINK: {affliateLink}</div>
-                <div>Leader: {affliateLeader}</div>
-                <div>Hires: {numberOfHires}</div>
-                <div>orderCount: {}</div>
-                <div>foxReward: {balance}</div>
-                <div>TTDrop: {}</div>
-              </Grid>
-            </div>
-        ) : (
-            <div>
-              {/* eslint-disable-next-line react/jsx-no-bind */}
-              <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
-              <div>Address: {address}</div>
-              <FormControl isInvalid={isError}>
-                <FormLabel>LeaderAddress</FormLabel>
-                <Input
-                    type="text"
-                    value={leaderAddress}
-                    onChange={handleInputChangeEmail}
-                />
-                {!isError ? (
-                    <FormHelperText>Enter your hire address</FormHelperText>
-                ) : (
-                    <FormErrorMessage>Missing a hire address</FormErrorMessage>
-                )}
-              </FormControl>
-            </div>
-        )}
-      </div>
+    <div>
+      {isSignedUp ? (
+        <div>
+          <Grid gap={4}>
+            <div>Address: {address}</div>
+            <div>CODE: {affliateId}</div>
+            <div>LINK: {affliateLink}</div>
+            <div>Leader: {affliateLeader}</div>
+            <div>Hires: {numberOfHires}</div>
+            <div>orderCount: {}</div>
+            <div>foxReward: {balance}</div>
+            <div>TTDrop: {}</div>
+          </Grid>
+        </div>
+      ) : (
+        <div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
+          <div>Reffural: {reffural}</div>
+          <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
+          <div>Address: {address}</div>
+          {/* <FormControl isInvalid={isError}> */}
+          {/*   <FormLabel>LeaderAddress</FormLabel> */}
+          {/*   <Input */}
+          {/*     type="text" */}
+          {/*     value={leaderAddress} */}
+          {/*     onChange={handleInputChangeEmail} */}
+          {/*   /> */}
+          {/*   {!isError ? ( */}
+          {/*     <FormHelperText>Enter your hire address</FormHelperText> */}
+          {/*   ) : ( */}
+          {/*     <FormErrorMessage>Missing a hire address</FormErrorMessage> */}
+          {/*   )} */}
+          {/* </FormControl> */}
+        </div>
+      )}
+    </div>
   );
 };
 
