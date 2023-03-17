@@ -15,8 +15,8 @@
 .grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(7, auto);
-    grid-gap: 20px;
+    grid-template-rows: repeat(14, auto);
+    grid-gap: 10px;
     max-width: 600px;
     width: 100%;
 }
@@ -31,4 +31,12 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
     text-align: center;
+}
+
+.label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #00b7ff;
+    text-transform: uppercase;
 }

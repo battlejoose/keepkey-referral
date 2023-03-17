@@ -151,15 +151,22 @@ const Login = () => {
       {isSignedUp ? (
         <div className="container">
           <div className="grid">
-            <div className="address item">Address: {address}</div>
-            <div className="doge-address item">Doge Address: {dogeAddress}</div>
-            <div className="code item">CODE: {affliateId}</div>
-            <div className="purchase-link item">PURCHASE LINK: {affliateLink}</div>
-            <div className="leader item">Leader: {affliateLeader}</div>
-            <div className="mlm-link item">
-              MLM LINK: https://keepkey-referral.vercel.app/signup/{address}
+            <div className="label">Address:</div>
+            <div className="value item">{address}</div>
+            <div className="label">Doge Address:</div>
+            <div className="value item">{dogeAddress}</div>
+            <div className="label">CODE:</div>
+            <div className="value item">{affliateId}</div>
+            <div className="label">PURCHASE LINK:</div>
+            <div className="value item">{affliateLink}</div>
+            <div className="label">Leader:</div>
+            <div className="value item">{affliateLeader}</div>
+            <div className="label">MLM LINK:</div>
+            <div className="value item">
+              https://keepkey-referral.vercel.app/signup/{address}
             </div>
-            <div className="hires item">Hires: {numberOfHires}</div>
+            <div className="label">Hires:</div>
+            <div className="value item">{numberOfHires}</div>
           </div>
         </div>
       ) : (
