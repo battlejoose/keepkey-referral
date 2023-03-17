@@ -18,8 +18,8 @@ import { isError } from "util";
 
 interface Props {}
 
-const URL = "https://ccbot.pro";
-// const URL = "http://localhost:4000";
+// const URL = "https://ccbot.pro";
+const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
@@ -30,7 +30,7 @@ interface BodyRegister {
 }
 
 const Login = () => {
-  const { reffural } = useParams();
+  const { referralAddress } = useParams();
   const [{ wallet }, connect] = useConnectWallet();
   const [address, setAddress] = React.useState("");
   const [affliateId, setAffliateId] = React.useState("");
@@ -40,13 +40,13 @@ const Login = () => {
   const [numberOfHires, setNumberOfHires] = React.useState(0);
   const [balance, setBalance] = React.useState(0);
 
-  const [leaderAddress, setLeaderAddress] = React.useState("");
+  // const [leaderAddress, setLeaderAddress] = React.useState("");
   const handleInputChangeEmail = (e: any) => setLeaderAddress(e.target.value);
 
   // onSignUp function
   const onSignUp = async function () {
-    const leader = leaderAddress;
-
+    const leader = referralAddress;
+    setAffliateLeader(leader)
     try {
       // eslint-disable-next-line no-console
       console.log("address: ", address);
@@ -87,6 +87,7 @@ const Login = () => {
       console.log("responseRegister", responseRegister.data);
       setAffliateId(responseRegister.data.discountCode);
       setAffliateLink(responseRegister.data.discountLink);
+      setAffliateLeader(leader);
       setIsSignedUp(true);
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -111,7 +112,6 @@ const Login = () => {
           setAffliateLeader(user.data.leader);
           setNumberOfHires(user.data.hires.length);
           setBalance(user.data.balance);
-
           setIsSignedUp(true);
         }
       }
@@ -132,6 +132,8 @@ const Login = () => {
 
   const isError = false;
 
+
+
   return (
     <div>
       {isSignedUp ? (
@@ -139,18 +141,18 @@ const Login = () => {
           <Grid gap={4}>
             <div>Address: {address}</div>
             <div>CODE: {affliateId}</div>
-            <div>LINK: {affliateLink}</div>
+            <div>PURCHASE LINK: {affliateLink}</div>
             <div>Leader: {affliateLeader}</div>
+            <div>MLM LINK: https://keepkey-referral.vercel.app/signup/{address}</div>
             <div>Hires: {numberOfHires}</div>
-            <div>orderCount: {}</div>
-            <div>foxReward: {balance}</div>
-            <div>TTDrop: {}</div>
+            {/* <div>orderCount: {orders}</div> */}
           </Grid>
         </div>
       ) : (
         <div>
           {/* eslint-disable-next-line react/jsx-no-bind */}
-          <div>Reffural: {reffural}</div>
+          <div>referral: {referralAddress}</div>
+          {/* eslint-disable-next-line react/jsx-no-bind */}
           <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
           <div>Address: {address}</div>
           {/* <FormControl isInvalid={isError}> */}
