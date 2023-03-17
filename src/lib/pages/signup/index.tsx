@@ -14,6 +14,8 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import uuid from "short-uuid";
+import "/Users/battlejoose/WebstormProjects/keepkey-referral/src/lib/pages/signup/FuturisticText.css";
+
 import { isError } from "util";
 
 interface Props {}
@@ -147,19 +149,18 @@ const Login = () => {
   return (
     <div>
       {isSignedUp ? (
-        <div>
-          <Grid gap={4}>
-            <div>Address: {address}</div>
-            <div>Doge Address: {dogeAddress}</div>
-            <div>CODE: {affliateId}</div>
-            <div>PURCHASE LINK: {affliateLink}</div>
-            <div>Leader: {affliateLeader}</div>
-            <div>
+        <div className="container">
+          <div className="grid">
+            <div className="address item">Address: {address}</div>
+            <div className="doge-address item">Doge Address: {dogeAddress}</div>
+            <div className="code item">CODE: {affliateId}</div>
+            <div className="purchase-link item">PURCHASE LINK: {affliateLink}</div>
+            <div className="leader item">Leader: {affliateLeader}</div>
+            <div className="mlm-link item">
               MLM LINK: https://keepkey-referral.vercel.app/signup/{address}
             </div>
-            <div>Hires: {numberOfHires}</div>
-            {/* <div>orderCount: {orders}</div> */}
-          </Grid>
+            <div className="hires item">Hires: {numberOfHires}</div>
+          </div>
         </div>
       ) : (
         <div>
