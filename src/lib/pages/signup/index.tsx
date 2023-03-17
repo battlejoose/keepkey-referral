@@ -23,6 +23,7 @@ const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
+  dogeAddress: string;
   code?: string;
   payload: string;
   signature: string;
@@ -39,17 +40,29 @@ const Login = () => {
   const [affliateLeader, setAffliateLeader] = React.useState("");
   const [numberOfHires, setNumberOfHires] = React.useState(0);
   const [balance, setBalance] = React.useState(0);
-
-  // const [leaderAddress, setLeaderAddress] = React.useState("");
-  const handleInputChangeEmail = (e: any) => setLeaderAddress(e.target.value);
-
+  const [isError, setIsError] = React.useState(false);
+  const [dogeAddress, setDogeAddress] = React.useState("");
+  const handleInputChangeDogeAddress = (e: any) => setDogeAddress(e.target.value);
+  // const handleInputChangeDogeAddress = function (dogeAddress: string) {
+  //   try {
+  //     if (dogeAddress[0] !== "D") {
+  //       // setIsError(true)
+  //     } else {
+  //       setDogeAddress(dogeAddress);
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
   // onSignUp function
   const onSignUp = async function () {
     const leader = referralAddress;
-    setAffliateLeader(leader)
+    setAffliateLeader(leader);
     try {
       // eslint-disable-next-line no-console
       console.log("address: ", address);
+
+      if (!dogeAddress) alert("Invalid doge address! doge address required!");
 
       // register
       const code = uuid.generate();
@@ -77,6 +90,7 @@ const Login = () => {
         address,
         code,
         payload,
+        dogeAddress,
         signature,
         leader,
       };
@@ -130,20 +144,19 @@ const Login = () => {
     if (!wallet) connect();
   }, [connect, wallet]); // once on startup
 
-  const isError = false;
-
-
-
   return (
     <div>
       {isSignedUp ? (
         <div>
           <Grid gap={4}>
             <div>Address: {address}</div>
+            <div>Doge Address: {dogeAddress}</div>
             <div>CODE: {affliateId}</div>
             <div>PURCHASE LINK: {affliateLink}</div>
             <div>Leader: {affliateLeader}</div>
-            <div>MLM LINK: https://keepkey-referral.vercel.app/signup/{address}</div>
+            <div>
+              MLM LINK: https://keepkey-referral.vercel.app/signup/{address}
+            </div>
             <div>Hires: {numberOfHires}</div>
             {/* <div>orderCount: {orders}</div> */}
           </Grid>
@@ -155,19 +168,19 @@ const Login = () => {
           {/* eslint-disable-next-line react/jsx-no-bind */}
           <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
           <div>Address: {address}</div>
-          {/* <FormControl isInvalid={isError}> */}
-          {/*   <FormLabel>LeaderAddress</FormLabel> */}
-          {/*   <Input */}
-          {/*     type="text" */}
-          {/*     value={leaderAddress} */}
-          {/*     onChange={handleInputChangeEmail} */}
-          {/*   /> */}
-          {/*   {!isError ? ( */}
-          {/*     <FormHelperText>Enter your hire address</FormHelperText> */}
-          {/*   ) : ( */}
-          {/*     <FormErrorMessage>Missing a hire address</FormErrorMessage> */}
-          {/*   )} */}
-          {/* </FormControl> */}
+          <FormControl isInvalid={isError}>
+            <FormLabel>Doge Address</FormLabel>
+            <Input
+              type="text"
+              value={dogeAddress}
+              onChange={handleInputChangeDogeAddress}
+            />
+            {!isError ? (
+              <FormHelperText>Enter your doge address</FormHelperText>
+            ) : (
+              <FormErrorMessage>invalid doge address</FormErrorMessage>
+            )}
+          </FormControl>
         </div>
       )}
     </div>
