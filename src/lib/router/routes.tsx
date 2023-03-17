@@ -5,7 +5,7 @@ import Login from "lib/pages/signup";
 
 export const routes: Array<PathRouteProps> = [
   {
-    path: "/signup/:reffuralAddress",
+    path: "/signup/:referralAddress",
     element: <Login />,
   },
   {

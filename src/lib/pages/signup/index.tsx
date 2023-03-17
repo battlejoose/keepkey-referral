@@ -19,7 +19,7 @@ import { isError } from "util";
 interface Props {}
 
 const URL = "https://ccbot.pro";
-// const URL = "http://localhost:4000";
+//const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
