@@ -14,14 +14,12 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import uuid from "short-uuid";
-import "/Users/battlejoose/WebstormProjects/keepkey-referral/src/lib/pages/signup/FuturisticText.css";
-
 import { isError } from "util";
 
 interface Props {}
 
 const URL = "https://ccbot.pro";
-//const URL = "http://localhost:4000";
+// const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
@@ -44,7 +42,8 @@ const Login = () => {
   const [balance, setBalance] = React.useState(0);
   const [isError, setIsError] = React.useState(false);
   const [dogeAddress, setDogeAddress] = React.useState("");
-  const handleInputChangeDogeAddress = (e: any) => setDogeAddress(e.target.value);
+  const handleInputChangeDogeAddress = (e: any) =>
+    setDogeAddress(e.target.value);
   // const handleInputChangeDogeAddress = function (dogeAddress: string) {
   //   try {
   //     if (dogeAddress[0] !== "D") {
