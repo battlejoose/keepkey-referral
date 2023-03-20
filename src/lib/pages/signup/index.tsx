@@ -310,7 +310,6 @@ const Login = () => {
           <CardBody>
             <Stack spacing={4}>
               <Text>Referral: {referralAddress}</Text>
-              <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
               <Text>Address: {address}</Text>
               <FormControl isInvalid={isError}>
                 <FormLabel>Doge Address</FormLabel>
@@ -325,6 +324,7 @@ const Login = () => {
                   <FormErrorMessage>Invalid doge address</FormErrorMessage>
                 )}
               </FormControl>
+              <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
             </Stack>
           </CardBody>
         </Card>

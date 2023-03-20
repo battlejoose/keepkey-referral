@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Link } from "@chakra-ui/react";
+import { Center, Box, Button, Flex, Image, Link } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiFillRocket, AiFillTrophy } from "react-icons/ai";
@@ -37,21 +37,23 @@ const CTASection = () => {
   }, []); // once on startup
 
   return (
-    <Box textAlign="center">
-      <Link _hover={undefined} href="https://keepkey.com">
-        <Button leftIcon={<AiFillRocket />} size="sm">
-          KeepKey.com
+    <Center>
+      <Box textAlign="center" marginY={4}>
+        <Link _hover={undefined} href="https://keepkey.com">
+          <Button leftIcon={<AiFillRocket />} size="sm">
+            KeepKey.com
+          </Button>
+        </Link>
+        <div>
+          <h2>affliates: {affliates}</h2>
+          <h2>orders: {orders}</h2>
+          <h2>payments: {payments}</h2>
+        </div>
+        <Button leftIcon={<AiFillTrophy />} size="sm" onClick={handleToSignup}>
+          Sign up for the affiliate program
         </Button>
-      </Link>
-      <div>
-        <h2>affliates: {affliates}</h2>
-        <h2>orders: {orders}</h2>
-        <h2>payments: {payments}</h2>
-      </div>
-      <Button leftIcon={<AiFillTrophy />} size="sm" onClick={handleToSignup}>
-        Sign up for the affiliate program
-      </Button>
-    </Box>
+      </Box>
+    </Center>
   );
 };
 

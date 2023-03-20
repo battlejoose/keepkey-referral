@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, Box } from "@chakra-ui/react";
 // import axios from "axios";
 // import { useEffect } from "react";
 
@@ -10,11 +10,13 @@ import SomeText from "./components/SomeText";
 
 const Home = () => {
   return (
+    <Box>
     <Grid gap={4}>
       <SomeText />
       <SomeImage />
       <CTASection />
     </Grid>
+    </Box>
   );
 };
 
