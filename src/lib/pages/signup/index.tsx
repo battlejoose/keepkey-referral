@@ -283,7 +283,7 @@ const Login = () => {
                     <TableCaption>Orders</TableCaption>
                     <Thead>
                       <Tr>
-                        <Th>Affiliate</Th>
+                        <Th>amount</Th>
                         {/* <Th>Order ID</Th> */}
                         {/* <Th>Queue ID</Th> */}
                         {/* <Th>Broadcast</Th> */}
@@ -293,8 +293,7 @@ const Login = () => {
                     <Tbody>
                       {orders.map((order) => (
                         <Tr key={order._id}>
-                          <Td>{order.affiliate}</Td>
-                          {/* <Td>{order.orderId}</Td> */}
+                          <Td>{order.amount}</Td>
                           {/* <Td>{order.queueId}</Td> */}
                           <Td>{order.broadcast.txid}</Td>
                         </Tr>
