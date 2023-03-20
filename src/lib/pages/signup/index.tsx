@@ -1,17 +1,18 @@
 import {
   Grid,
+  Text,
+  Card,
+  CardBody,
+  Stack,
   Button,
   FormControl,
   FormLabel,
   FormHelperText,
   FormErrorMessage,
   Input,
-  Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Heading,
-  Stack,
   StackDivider,
   Box,
   useClipboard,
@@ -244,26 +245,28 @@ const Login = () => {
           </div>
         </div>
       ) : (
-        <div>
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          <div>referral: {referralAddress}</div>
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
-          <div>Address: {address}</div>
-          <FormControl isInvalid={isError}>
-            <FormLabel>Doge Address</FormLabel>
-            <Input
-              type="text"
-              value={dogeAddress}
-              onChange={handleInputChangeDogeAddress}
-            />
-            {!isError ? (
-              <FormHelperText>Enter your doge address</FormHelperText>
-            ) : (
-              <FormErrorMessage>invalid doge address</FormErrorMessage>
-            )}
-          </FormControl>
-        </div>
+        <Card p={4}>
+          <CardBody>
+            <Stack spacing={4}>
+              <Text>Referral: {referralAddress}</Text>
+              <Button onClick={onSignUp}>Sign Up for Affiliate Program</Button>
+              <Text>Address: {address}</Text>
+              <FormControl isInvalid={isError}>
+                <FormLabel>Doge Address</FormLabel>
+                <Input
+                  type="text"
+                  value={dogeAddress}
+                  onChange={handleInputChangeDogeAddress}
+                />
+                {!isError ? (
+                  <FormHelperText>Enter your doge address</FormHelperText>
+                ) : (
+                  <FormErrorMessage>Invalid doge address</FormErrorMessage>
+                )}
+              </FormControl>
+            </Stack>
+          </CardBody>
+        </Card>
       )}
     </div>
   );
