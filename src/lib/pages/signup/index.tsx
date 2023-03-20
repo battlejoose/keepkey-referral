@@ -51,7 +51,7 @@ const Login = () => {
   const [balance, setBalance] = React.useState(0);
   const [isError, setIsError] = React.useState(false);
   const [dogeAddress, setDogeAddress] = React.useState("");
-  const { onCopy, value, setValue, hasCopied } = useClipboard("");
+  const [buttonText, setButtonText] = React.useState("copy");
   const handleInputChangeDogeAddress = (e: any) =>
     setDogeAddress(e.target.value);
 
@@ -66,6 +66,18 @@ const Login = () => {
   //     console.error(e);
   //   }
   // };
+
+  const onClickCopy = function (vaule: string) {
+    try{
+      // eslint-disable-next-line no-console
+      console.log("onClickCopyAffiliateLink: ", vaule);
+      const valueString = vaule.toString();
+      navigator.clipboard.writeText(valueString.valueOf());
+      alert(`Copied to clipboard! value: ${ valueString}`);
+    }catch(e){
+      console.error(e)
+    }
+  };
 
   // onSignUp function
   const onSignUp = async function () {
@@ -167,7 +179,7 @@ const Login = () => {
           <div className="grid">
             <Card>
               <CardHeader>
-                <Heading size="md">User Reffural Report</Heading>
+                <Heading size="md">User Referral Report</Heading>
               </CardHeader>
               <CardBody>
                 <Stack divider={<StackDivider />} spacing="4">
@@ -193,7 +205,13 @@ const Login = () => {
                     <Heading size="xs" textTransform="uppercase">
                       PURCHASE LINK:
                     </Heading>
+                    <small>(10pct discount for users)</small>
                     <div className="value item">{affliateLink}</div>
+                    <Button
+                      onClick={() => onClickCopy(affliateLink)}
+                    >
+                      Copy
+                    </Button>
                   </Box>
                   <Box>
                     <Heading size="xs" textTransform="uppercase">
@@ -208,6 +226,11 @@ const Login = () => {
                     <div className="value item">
                       https://keepkey-referral.vercel.app/signup/{address}
                     </div>
+                    <Button
+                      onClick={() => onClickCopy(`https://keepkey-referral.vercel.app/signup/`+address)}
+                    >
+                      Copy
+                    </Button>
                   </Box>
                   <Box>
                     <Heading size="xs" textTransform="uppercase">
