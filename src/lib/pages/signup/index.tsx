@@ -6,6 +6,15 @@ import {
   FormHelperText,
   FormErrorMessage,
   Input,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Heading,
+  Stack,
+  StackDivider,
+  Box,
+  useClipboard,
 } from "@chakra-ui/react";
 import { useConnectWallet } from "@web3-onboard/react";
 // import SomeText from "./components/SomeText";
@@ -42,8 +51,10 @@ const Login = () => {
   const [balance, setBalance] = React.useState(0);
   const [isError, setIsError] = React.useState(false);
   const [dogeAddress, setDogeAddress] = React.useState("");
+  const { onCopy, value, setValue, hasCopied } = useClipboard("");
   const handleInputChangeDogeAddress = (e: any) =>
     setDogeAddress(e.target.value);
+
   // const handleInputChangeDogeAddress = function (dogeAddress: string) {
   //   try {
   //     if (dogeAddress[0] !== "D") {
@@ -55,9 +66,11 @@ const Login = () => {
   //     console.error(e);
   //   }
   // };
+
   // onSignUp function
   const onSignUp = async function () {
     const leader = referralAddress;
+    // @ts-ignore
     setAffliateLeader(leader);
     try {
       // eslint-disable-next-line no-console
@@ -102,6 +115,7 @@ const Login = () => {
       console.log("responseRegister", responseRegister.data);
       setAffliateId(responseRegister.data.discountCode);
       setAffliateLink(responseRegister.data.discountLink);
+      setDogeAddress(responseRegister.data.dogeAddress);
       setAffliateLeader(leader);
       setIsSignedUp(true);
     } catch (e) {
@@ -122,6 +136,7 @@ const Login = () => {
         if (user.data) {
           // eslint-disable-next-line no-console
           console.log("user: ", user.data);
+          setDogeAddress(user.data.dogeAddress);
           setAffliateLink(user.data.discountLink);
           setAffliateId(user.data.discountCode);
           setAffliateLeader(user.data.leader);
@@ -150,22 +165,59 @@ const Login = () => {
       {isSignedUp ? (
         <div className="container">
           <div className="grid">
-            <div className="label">Address:</div>
-            <div className="value item">{address}</div>
-            <div className="label">Doge Address:</div>
-            <div className="value item">{dogeAddress}</div>
-            <div className="label">CODE:</div>
-            <div className="value item">{affliateId}</div>
-            <div className="label">PURCHASE LINK:</div>
-            <div className="value item">{affliateLink}</div>
-            <div className="label">Leader:</div>
-            <div className="value item">{affliateLeader}</div>
-            <div className="label">MLM LINK:</div>
-            <div className="value item">
-              https://keepkey-referral.vercel.app/signup/{address}
-            </div>
-            <div className="label">Hires:</div>
-            <div className="value item">{numberOfHires}</div>
+            <Card>
+              <CardHeader>
+                <Heading size="md">User Reffural Report</Heading>
+              </CardHeader>
+              <CardBody>
+                <Stack divider={<StackDivider />} spacing="4">
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Address:
+                    </Heading>
+                    {address}
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Doge Address:
+                    </Heading>
+                    <div className="value item">{dogeAddress}</div>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      CODE:
+                    </Heading>
+                    <div className="value item">{affliateId}</div>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      PURCHASE LINK:
+                    </Heading>
+                    <div className="value item">{affliateLink}</div>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Leader
+                    </Heading>
+                    <div className="value item">{affliateLeader}</div>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      MLM LINK:
+                    </Heading>
+                    <div className="value item">
+                      https://keepkey-referral.vercel.app/signup/{address}
+                    </div>
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Hires:
+                    </Heading>
+                    <div className="value item">{numberOfHires}</div>
+                  </Box>
+                </Stack>
+              </CardBody>
+            </Card>
           </div>
         </div>
       ) : (
