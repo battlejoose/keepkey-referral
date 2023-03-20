@@ -278,29 +278,31 @@ const Login = () => {
                     </CardBody>
                   </Card>
                 </TabPanel>
-                <TableContainer>
-                  <Table variant="simple">
-                    <TableCaption>Orders</TableCaption>
-                    <Thead>
-                      <Tr>
-                        <Th>amount</Th>
-                        {/* <Th>Order ID</Th> */}
-                        {/* <Th>Queue ID</Th> */}
-                        {/* <Th>Broadcast</Th> */}
-                        <Th>TXID: </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {orders.map((order) => (
-                        <Tr key={order._id}>
-                          <Td>{order.amount}</Td>
-                          {/* <Td>{order.queueId}</Td> */}
-                          <Td>{order.broadcast.txid}</Td>
+                <TabPanel>
+                  <TableContainer>
+                    <Table variant="simple">
+                      <TableCaption>Orders</TableCaption>
+                      <Thead>
+                        <Tr>
+                          <Th>amount</Th>
+                          {/* <Th>Order ID</Th> */}
+                          {/* <Th>Queue ID</Th> */}
+                          {/* <Th>Broadcast</Th> */}
+                          <Th>TXID: </Th>
                         </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
+                      </Thead>
+                      <Tbody>
+                        {orders.map((order) => (
+                          <Tr key={order._id}>
+                            <Td>{order.amount}</Td>
+                            {/* <Td>{order.queueId}</Td> */}
+                            <Td>{order.broadcast.txid}</Td>
+                          </Tr>
+                        ))}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </TabPanel>
               </TabPanels>
             </Tabs>
           </div>
