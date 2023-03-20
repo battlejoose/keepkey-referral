@@ -15,6 +15,20 @@ import {
   StackDivider,
   Box,
   useClipboard,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react";
 import { useConnectWallet } from "@web3-onboard/react";
 // import SomeText from "./components/SomeText";
@@ -27,8 +41,8 @@ import { isError } from "util";
 
 interface Props {}
 
-const URL = "https://ccbot.pro";
-// const URL = "http://localhost:4000";
+// const URL = "https://ccbot.pro";
+const URL = "http://localhost:4000";
 
 interface BodyRegister {
   address: string;
@@ -52,6 +66,7 @@ const Login = () => {
   const [isError, setIsError] = React.useState(false);
   const [dogeAddress, setDogeAddress] = React.useState("");
   const [buttonText, setButtonText] = React.useState("copy");
+  const [orders, setOrders] = React.useState([]);
   const handleInputChangeDogeAddress = (e: any) =>
     setDogeAddress(e.target.value);
 
@@ -68,14 +83,14 @@ const Login = () => {
   // };
 
   const onClickCopy = function (vaule: string) {
-    try{
+    try {
       // eslint-disable-next-line no-console
       console.log("onClickCopyAffiliateLink: ", vaule);
       const valueString = vaule.toString();
       navigator.clipboard.writeText(valueString.valueOf());
-      alert(`Copied to clipboard! value: ${ valueString}`);
-    }catch(e){
-      console.error(e)
+      alert(`Copied to clipboard! value: ${valueString}`);
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -156,6 +171,16 @@ const Login = () => {
           setBalance(user.data.balance);
           setIsSignedUp(true);
         }
+
+        // get orders
+        const orders = await axios.get(
+          `${URL}/api/v1/orders/${wallet.accounts[0].address}`
+        );
+        if (orders.data) {
+          // eslint-disable-next-line no-console
+          console.log("orders: ", orders.data);
+          setOrders(orders.data);
+        }
       }
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -177,70 +202,107 @@ const Login = () => {
       {isSignedUp ? (
         <div className="container">
           <div className="grid">
-            <Card>
-              <CardHeader>
-                <Heading size="md">User Referral Report</Heading>
-              </CardHeader>
-              <CardBody>
-                <Stack divider={<StackDivider />} spacing="4">
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Address:
-                    </Heading>
-                    {address}
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Doge Address:
-                    </Heading>
-                    <div className="value item">{dogeAddress}</div>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      CODE:
-                    </Heading>
-                    <div className="value item">{affliateId}</div>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      PURCHASE LINK:
-                    </Heading>
-                    <small>(10pct discount for users)</small>
-                    <div className="value item">{affliateLink}</div>
-                    <Button
-                      onClick={() => onClickCopy(affliateLink)}
-                    >
-                      Copy
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Leader
-                    </Heading>
-                    <div className="value item">{affliateLeader}</div>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      MLM LINK:
-                    </Heading>
-                    <div className="value item">
-                      https://keepkey-referral.vercel.app/signup/{address}
-                    </div>
-                    <Button
-                      onClick={() => onClickCopy(`https://keepkey-referral.vercel.app/signup/`+address)}
-                    >
-                      Copy
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Heading size="xs" textTransform="uppercase">
-                      Hires:
-                    </Heading>
-                    <div className="value item">{numberOfHires}</div>
-                  </Box>
-                </Stack>
-              </CardBody>
-            </Card>
+            <Tabs>
+              <TabList>
+                <Tab>Info</Tab>
+                <Tab>payments</Tab>
+              </TabList>
+
+              <TabPanels>
+                <TabPanel>
+                  <Card>
+                    <CardHeader>
+                      <Heading size="md">User Referral Report</Heading>
+                    </CardHeader>
+                    <CardBody>
+                      <Stack divider={<StackDivider />} spacing="4">
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            Address:
+                          </Heading>
+                          {address}
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            Doge Address:
+                          </Heading>
+                          <div className="value item">{dogeAddress}</div>
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            CODE:
+                          </Heading>
+                          <div className="value item">{affliateId}</div>
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            PURCHASE LINK:
+                          </Heading>
+                          <small>(10pct discount for users)</small>
+                          <div className="value item">{affliateLink}</div>
+                          <Button onClick={() => onClickCopy(affliateLink)}>
+                            Copy
+                          </Button>
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            Leader
+                          </Heading>
+                          <div className="value item">{affliateLeader}</div>
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            MLM LINK:
+                          </Heading>
+                          <div className="value item">
+                            https://keepkey-referral.vercel.app/signup/{address}
+                          </div>
+                          <Button
+                            onClick={() =>
+                              onClickCopy(
+                                `https://keepkey-referral.vercel.app/signup/${address}`
+                              )
+                            }
+                          >
+                            Copy
+                          </Button>
+                        </Box>
+                        <Box>
+                          <Heading size="xs" textTransform="uppercase">
+                            Hires:
+                          </Heading>
+                          <div className="value item">{numberOfHires}</div>
+                        </Box>
+                      </Stack>
+                    </CardBody>
+                  </Card>
+                </TabPanel>
+                <TableContainer>
+                  <Table variant="simple">
+                    <TableCaption>Orders</TableCaption>
+                    <Thead>
+                      <Tr>
+                        <Th>Affiliate</Th>
+                        {/* <Th>Order ID</Th> */}
+                        {/* <Th>Queue ID</Th> */}
+                        {/* <Th>Broadcast</Th> */}
+                        <Th>TXID: </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {orders.map((order) => (
+                        <Tr key={order._id}>
+                          <Td>{order.affiliate}</Td>
+                          {/* <Td>{order.orderId}</Td> */}
+                          {/* <Td>{order.queueId}</Td> */}
+                          <Td>{order.broadcast.txid}</Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </TabPanels>
+            </Tabs>
           </div>
         </div>
       ) : (
